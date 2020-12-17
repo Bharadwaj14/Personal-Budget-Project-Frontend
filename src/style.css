@@ -1,0 +1,175 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: #34179e;
+  text-decoration: unset;
+}
+
+button,
+input[type="submit"] {
+  border: none;
+  background: none;
+  color: unset;
+  cursor: pointer;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol {
+  margin: 1em;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.page {
+  padding: 1rem;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+#header {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000;
+}
+#header .title {
+  margin: 0;
+  padding: 0 1rem;
+  color: #f8f8f8;
+}
+#header .auth-options {
+  height: 100%;
+  display: flex;
+}
+#header .auth-options button {
+  padding: 0 1rem;
+  background-color: #252525;
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+#header .auth-options button:hover {
+  background-color: #1b1b1b;
+}
+
+.form {
+  max-width: 350px;
+  padding: 1.5rem;
+}
+.form label,
+.form input {
+  display: block;
+}
+.form input {
+  margin-bottom: 1rem;
+}
+.form label {
+  margin-bottom: 0.2rem;
+  font-size: 20px;
+  font-weight: bold;
+}
+.form select {
+  font-size: 18px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="password"] {
+  width: 100%;
+  padding: 0.3rem;
+  border: 1px solid #c2c2c2;
+  background-color: #f0f0f0;
+  font-size: 1.1rem;
+}
+.form input:focus {
+  border: 1px solid #0971c7;
+  box-shadow: inset 0px 0px 5px rgba(38, 142, 228, 0.5);
+  outline: none;
+}
+.form input[type="submit"] {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #0e0d0d;
+  background-color: #9468e0;
+  font-size: 1.1rem;
+}
+
+.error-notice {
+  border: 1px solid red;
+  color: #b91b1b;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  background-color: rgb(129, 14, 182);
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+li a:hover {
+  background-color: #111111;
+}
+
+.dashboardCharts {
+  left: 350px;
+  padding: 0;
+  margin: 0;
+}
+
+.radar {
+  width: 600px;
+  padding: 1rem 1.5rem;
+  display: inline-block;
+}
+.bar {
+  width: 600px;
+  padding: 1rem 1.5rem;
+  display: inline-block;
+}
+.donut {
+  width: 600px;
+  padding: 1rem 1.5rem;
+  display: inline-block;
+}
+
+@media screen and (max-width: 550px) {
+  #header.title {
+    font-size: 1.2rem;
+  }
+  #header.auth-options button {
+    padding: 0 0.5rem;
+    font-size: 0.9rem;
+  }
+}
