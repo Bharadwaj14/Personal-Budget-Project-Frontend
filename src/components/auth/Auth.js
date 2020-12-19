@@ -15,6 +15,28 @@ export default function Auth() {
     localStorage.setItem("auth-token", "");
     history.push("/login");
   };
+  const parseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split(".")[1]));
+    } catch (err) {
+      return null;
+    }
+  };
+  function onTokenExpire() {
+    let token = localStorage.getItem("auth-token");
+    if (token) {
+      let decodejwt = parseJwt(token);
+      if (Date.now() <= decodejwt.exp * 1000) {
+        return true;
+      } else {
+        logout();
+      }
+    }
+  } 
+
+  setInterval(() => {
+    onTokenExpire();
+  }, 10000);
   return (
     <nav className="auth-options">
       {userData.user ? (

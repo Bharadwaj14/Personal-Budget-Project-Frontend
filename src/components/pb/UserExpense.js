@@ -4,6 +4,7 @@ import UserContext from "../../context/UserContext";
 import PersonalBudgetNavigation from "../layout/PersonalBudgetNavigation";
 import ErrorNotice from "../../misc/ErrorNotice";
 import Axios from "axios";
+const SERVER_URL = require('../../config/redirect').SERVER_URL;
 export default function UserExpense() {
   const [category, setCategory] = useState();
   const [expense, setExpense] = useState();
@@ -22,11 +23,12 @@ export default function UserExpense() {
       const date = new Date();
       const userExpense = { category, expense, month, date };
       console.log(userExpense);
-      await Axios.post("http://localhost:5000/expense/add", userExpense, {
+      await Axios.post(SERVER_URL+"/expense/add", userExpense, {
         headers: {
           "x-auth-token": `${token}`,
         },
       });
+      history.push("/");
     } catch (err) {
       err.response.data.msg && setError(err.response.data.msg);
     }
@@ -55,6 +57,11 @@ export default function UserExpense() {
                 <option value="Groceries">Groceries</option>
                 <option value="Gas Bill">Gas Bill</option>
                 <option value="Electricity Bill">Electricity</option>
+                <option value="Mobile Bill">Mobile Bill</option>
+                <option value="Eat Out">Eat Out</option>
+                <option value="Education">Education</option>
+                <option value="Medical expenses">Medical expenses</option>
+                <option value="Travel expenses">Travel expenses</option>
               </select>
 
               <label htmlFor="expense">Expense</label>
@@ -65,11 +72,23 @@ export default function UserExpense() {
               />
 
               <label htmlFor="month">Month</label>
-              <input
+              <select
                 id="month"
-                type="text"
                 onChange={(e) => setMonth(e.target.value)}
-              />
+              >
+                <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option>
+              </select>
 
               <input type="submit" value="Add" />
             </form>

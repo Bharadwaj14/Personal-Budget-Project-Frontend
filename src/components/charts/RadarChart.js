@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import Chart from "chart.js";
-
+const SERVER_URL = require('../../config/redirect').SERVER_URL;
 var dataSource = {
   labels: [],
   datasets: [
@@ -45,7 +45,7 @@ export default function RadarChart() {
   useEffect(() => {
     const token = localStorage.getItem("auth-token");
     axios
-      .get("http://localhost:5000/budget/get", {
+      .get(SERVER_URL+"/budget/get", {
         headers: {
           "x-auth-token": `${token}`,
         },
@@ -57,7 +57,7 @@ export default function RadarChart() {
         }
 
         axios
-          .get("http://localhost:5000/expense/get", {
+          .get(SERVER_URL+"/expense/get", {
             params: {
               month: month,
             },
@@ -82,11 +82,11 @@ export default function RadarChart() {
                 dataSource.datasets[1].data[i] = 0;
               }
             }
+            if (response) {
+              setDataExists(true);
+              renderPieChart();
+            }
           });
-        if (res) {
-          setDataExists(true);
-          renderPieChart();
-        }
       });
 
     function renderPieChart() {

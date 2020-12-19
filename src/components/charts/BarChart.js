@@ -1,19 +1,19 @@
 import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import Chart from "chart.js";
-
+const SERVER_URL = require('../../config/redirect').SERVER_URL;
 var dataSource = {
   labels: [],
   datasets: [
     {
       data: [],
-      backgroundColor: "",
+      backgroundColor: "rgb(54, 162, 235)",
       label: "Budget",
       borderWidth: 1,
     },
     {
       label: "Expense",
-      backgroundColor: "",
+      backgroundColor: "rgb(255, 99, 132)",
       data: [],
       borderWidth: 1,
     },
@@ -34,7 +34,7 @@ export default function BarChart() {
   useEffect(() => {
     const token = localStorage.getItem("auth-token");
     axios
-      .get("http://localhost:5000/budget/get", {
+      .get(SERVER_URL+"/budget/get", {
         headers: {
           "x-auth-token": `${token}`,
         },
@@ -43,12 +43,10 @@ export default function BarChart() {
         for (var i = 0; i < res.data.length; i++) {
           dataSource.labels[i] = res.data[i].category;
           dataSource.datasets[0].data[i] = res.data[i].budget;
-          // dataSource.datasets[0].backgroundColor[i]=getRandomColor();
         }
-        dataSource.datasets[0].backgroundColor = getRandomColor();
 
         axios
-          .get("http://localhost:5000/expense/get", {
+          .get(SERVER_URL+"/expense/get", {
             params: {
               month: month,
             },
@@ -73,12 +71,11 @@ export default function BarChart() {
                 dataSource.datasets[1].data[i] = 0;
               }
             }
-            dataSource.datasets[1].backgroundColor = getRandomColor();
+            if (response) {
+              setDataExists(true);
+              renderPieChart();
+            }
           });
-        if (res) {
-          setDataExists(true);
-          renderPieChart();
-        }
       });
 
     function renderPieChart() {

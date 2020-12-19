@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <>
       <PersonalBudgetNavigation />
-      <div className="page">
+      <main className="page">
         {userData.user ? (
           <>
             <h1>{userData.user.displayName}: Welcome to Personal Budget</h1>
@@ -24,7 +24,7 @@ export default function HomePage() {
             <Link to="/login">Login</Link>
           </>
         )}
-      </div>
+      </main>
     </>
   );
 }

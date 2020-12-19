@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef, useEffect } from "react";
 import axios from "axios";
 import Chart from "chart.js";
-
+const SERVER_URL = require('../../config/redirect').SERVER_URL;
 var dataSource = {
   datasets: [
     {
@@ -27,7 +27,7 @@ export default function DonutChart() {
   useEffect(() => {
     const token = localStorage.getItem("auth-token");
     axios
-      .get("http://localhost:5000/budget/get", {
+      .get(SERVER_URL+"/budget/get", {
         params: {
           month: month,
         },
@@ -43,7 +43,7 @@ export default function DonutChart() {
         }
 
         axios
-          .get("http://localhost:5000/expense/get", {
+          .get(SERVER_URL+"/expense/get", {
             params: {
               month: month,
             },
@@ -73,11 +73,11 @@ export default function DonutChart() {
                   dataSource.labels[i] + ", Expense Usage: 0% ";
               }
             }
+            if (response) {
+              setDataExists(true);
+              renderPieChart();
+            }
           });
-        if (res) {
-          setDataExists(true);
-          renderPieChart();
-        }
       });
     function getPercentage(exp, bud) {
       return (exp * 100) / bud;

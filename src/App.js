@@ -10,6 +10,7 @@ import Header from "./components/layout/Header";
 import UserContext from "./context/UserContext";
 import Axios from "axios";
 import "./style.css";
+const SERVER_URL = require('./config/redirect').SERVER_URL;
 
 export default function App() {
   const [userData, setUserData] = useState({
@@ -25,12 +26,12 @@ export default function App() {
         token = "";
       }
       const tokenRes = await Axios.post(
-        "http://localhost:5000/users/tokenIsValid",
+        SERVER_URL+"/users/tokenIsValid",
         null,
         { headers: { "x-auth-token": token } }
       );
       if (tokenRes.data) {
-        const userRes = await Axios.get("http://localhost:5000/users/", {
+        const userRes = await Axios.get(SERVER_URL+"/users/", {
           headers: { "x-auth-token": token },
         });
         setUserData({
@@ -49,7 +50,11 @@ export default function App() {
           <div className="container">
             <Switch>
               {userData.user === undefined?
+              <>
+              <Route exact path="/" component={HomePage}></Route>
               <Route path="/login" component={login}></Route>
+              <Route path="/register" component={register}></Route>
+              </>
               :(
               <>
               <Route exact path="/" component={HomePage}></Route>

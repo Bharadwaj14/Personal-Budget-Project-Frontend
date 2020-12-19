@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import ErrorNotice from "../../misc/ErrorNotice";
+const SERVER_URL = require('../../config/redirect').SERVER_URL;
 export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -12,7 +13,7 @@ export default function Login() {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const loginRes = await Axios.post("http://localhost:5000/users/login", {
+      const loginRes = await Axios.post(SERVER_URL+"/users/login", {
         email,
         password,
       });
@@ -22,6 +23,7 @@ export default function Login() {
       });
       localStorage.setItem("auth-token", loginRes.data.token);
       history.push("/");
+      alert("User session expires after 60 seconds");
     } catch (err) {
       err.response.data.msg && setError(err.response.data.msg);
     }

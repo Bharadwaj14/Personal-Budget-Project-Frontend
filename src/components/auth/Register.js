@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import ErrorNotice from "../../misc/ErrorNotice";
+const SERVER_URL = require('../../config/redirect').SERVER_URL;
 export default function Register() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -18,8 +19,8 @@ export default function Register() {
 
     try {
       const newUser = { email, password, passwordCheck, displayName };
-      await Axios.post("http://localhost:5000/users/register", newUser);
-      const loginRes = await Axios.post("http://localhost:5000/users/login", {
+      await Axios.post(SERVER_URL+"/users/register", newUser);
+      const loginRes = await Axios.post(SERVER_URL+"/users/login", {
         email,
         password,
       });
@@ -56,7 +57,7 @@ export default function Register() {
         />
         <input
           type="password"
-          placeholder="Verify password"
+          placeholder="Re-enter password"
           onChange={(e) => setPasswordCheck(e.target.value)}
         />
 
